@@ -115,7 +115,7 @@ jobs:
             wc -l input/people.txt output/people.txt; du -sh input/people.txt output/people.txt; cmp -s input/people.txt output/people.txt && echo "Sorted file incorrectly same as unsorted file" && exit 1 || echo "Sorted file correctly not the same as the unsorted file" && exit 0
         # Run GatorGrader: see config/gatorgrade.yml
         - name: Run GatorGrader with GatorGrade
-          if: if always() && matrix.os == 'ubuntu-latest'
+          if: always() && matrix.os == 'ubuntu-latest'
           run:  |
             pip install gatorgrade
             gatorgrade --config config/gatorgrade.yml --report env md GITHUB_STEP_SUMMARY
