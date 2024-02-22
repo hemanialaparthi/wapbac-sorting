@@ -11,15 +11,16 @@ from filesorter import person
 # Make sure that your implementations are tested
 # through a test suite in the test_process.py file
 
+# TODO: make sure to add type annotations for the
+# parameters and return values for the functions
 
-def extract_person_data(data: str) -> List[person.Person]:
+
+def extract_person_data(data):
     """Extract a specified data column from the provided textual contents."""
     person_data = []
     return person_data
 
 
-def write_person_data(
-    file_name: str, person_data: List[person.Person]
-) -> None:
+def write_person_data(file_name, person_data):
     """Write the person data stored in a list to the specified file."""
     return None
