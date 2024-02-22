@@ -1,5 +1,3 @@
-"""Represent a person using an object-oriented approach."""
-
 from typing import List
 
 from filesorter import constants

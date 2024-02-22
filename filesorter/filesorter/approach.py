@@ -1,5 +1,3 @@
-"""Configuration of the benchmarking tool with an approach."""
-
 from enum import Enum
 
 

@@ -1,5 +1,3 @@
-"""Define constants with dataclasses."""
-
 from dataclasses import dataclass
 
 
