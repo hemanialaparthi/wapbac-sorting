@@ -42,33 +42,15 @@ TODO: Provide the complete command-line for your use of the `filesorter` program
 TODO: Provide your own example of a command and the output that it produces
 TODO: Make sure that this run is for one of the three unique approaches
 
-- `command`
-
-```text
-output
-```
-
 #### Provide the command the output for the second run of the `filesorter`
 
 TODO: Provide your own example of a command and the output that it produces
 TODO: Make sure that this run is for one of the three unique approaches
 
-- `command`
-
-```text
-output
-```
-
 #### Provide the command the output for the third run of the `filesorter`
 
 TODO: Provide your own example of a command and the output that it produces
 TODO: Make sure that this run is for one of the three unique approaches
-
-- `command`
-
-```text
-output
-```
 
 ## Experiment Design
 
