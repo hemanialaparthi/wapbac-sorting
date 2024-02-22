@@ -1,0 +1,291 @@
+setup: |
+  echo "🐊 Start to install dependencies ..."
+  echo "🐊 Note: Will not install dependencies if available"
+  cd filesorter && poetry install
+  echo "🐊 ... Done installing dependencies"
+---
+
+# Checks on Files {{{
+
+# perform checks on a file
+- filesorter/filesorter/__init__.py:
+    - description: Ensure that the __init__.py file exists in the filesorter/filesorter/ directory
+      check: ConfirmFileExists
+
+# perform checks on a file
+- filesorter/tests/__init__.py:
+    - description: Ensure that the __init__.py file exists in the filesorter/tests/ directory
+      check: ConfirmFileExists
+
+# perform checks on a file
+- filesorter/filesorter/main.py:
+    - description: Ensure that the main.py file exists in the filesorter/filesorter/ directory
+      check: ConfirmFileExists
+    - description: Complete all TODOs, remove the TODO markers, and rewrite comments for main.py
+      check: MatchFileFragment
+      options:
+        fragment: TODO
+        count: 0
+        exact: true
+    - description: Create a sufficient number of docstring (i.e., multiple-line) comments in main.py
+      check: CountMultipleLineComments
+      options:
+        language: "Python"
+        count: 3
+        exact: false
+    - description: Create a sufficient number of single-line comments in main.py
+      check: CountSingleLineComments
+      options:
+        language: "Python"
+        count: 5
+        exact: false
+
+# perform checks on a file
+- filesorter/filesorter/approach.py:
+    - description: Ensure that the approach.py file exists in the filesorter/filesorter/ directory
+      check: ConfirmFileExists
+    - description: Complete all TODOs, remove the TODO markers, and rewrite comments for approach.py
+      check: MatchFileFragment
+      options:
+        fragment: TODO
+        count: 0
+        exact: true
+    - description: Create a sufficient number of docstring (i.e., multiple-line) comments in approach.py
+      check: CountMultipleLineComments
+      options:
+        language: "Python"
+        count: 3
+        exact: false
+
+# perform checks on a file
+- filesorter/filesorter/constants.py:
+    - description: Ensure that the constants.py file exists in the filesorter/filesorter/ directory
+      check: ConfirmFileExists
+    - description: Complete all TODOs, remove the TODO markers, and rewrite comments for constants.py
+      check: MatchFileFragment
+      options:
+        fragment: TODO
+        count: 0
+        exact: true
+    - description: Create a sufficient number of docstring (i.e., multiple-line) comments in constants.py
+      check: CountMultipleLineComments
+      options:
+        language: "Python"
+        count: 3
+        exact: false
+
+# perform checks on a file
+- filesorter/filesorter/person.py:
+    - description: Ensure that the person.py file exists in the filesorter/filesorter/ directory
+      check: ConfirmFileExists
+    - description: Complete all TODOs, remove the TODO markers, and rewrite comments for person.py
+      check: MatchFileFragment
+      options:
+        fragment: TODO
+        count: 0
+        exact: true
+    - description: Reference an attribute inside of the Person class
+      check: MatchFileFragment
+      options:
+        fragment: "self.name"
+        count: 3
+        exact: false
+    - description: Create a sufficient number of docstring (i.e., multiple-line) comments in person.py
+      check: CountMultipleLineComments
+      options:
+        language: "Python"
+        count: 5
+        exact: false
+    - description: Create a sufficient number of single-line comments in person.py
+      check: CountSingleLineComments
+      options:
+        language: "Python"
+        count: 3
+        exact: false
+
+# perform checks on a file
+- filesorter/filesorter/organize.py:
+    - description: Ensure that the organize.py file exists in the filesorter/filesorter/ directory
+      check: ConfirmFileExists
+    - description: Complete all TODOs, remove the TODO markers, and rewrite comments for process.py
+      check: MatchFileFragment
+      options:
+        fragment: TODO
+        count: 0
+        exact: true
+    - description: Use name of the current module to create an input to the getattr function in organize.py
+      check: MatchFileFragment
+      options:
+        fragment: "sys.modules[__name__]"
+        count: 1
+        exact: false
+    - description: Use the getattr function in the organize.py file to call a function through its name as a string
+      check: MatchFileFragment
+      options:
+        fragment: "getattr("
+        count: 3
+        exact: false
+    - description: Create a sufficient number of docstring (i.e., multiple-line) comments in organize.py
+      check: CountMultipleLineComments
+      options:
+        language: "Python"
+        count: 6
+        exact: false
+    - description: Create a sufficient number of single-line comments in organize.py
+      check: CountSingleLineComments
+      options:
+        language: "Python"
+        count: 15
+        exact: false
+
+# perform checks on a file
+- filesorter/filesorter/process.py:
+    - description: Ensure that the process.py file exists in the filesorter/filesorter/ directory
+      check: ConfirmFileExists
+    - description: Complete all TODOs, remove the TODO markers, and rewrite comments for process.py
+      check: MatchFileFragment
+      options:
+        fragment: TODO
+        count: 0
+        exact: true
+    - description: Define the extract_person_data function in the process.py file
+      check: MatchFileFragment
+      options:
+        fragment: "extract_person_data("
+        count: 1
+        exact: true
+    - description: Define the write_person_data function in the process.py file
+      check: MatchFileFragment
+      options:
+        fragment: "write_person_data("
+        count: 1
+        exact: true
+    - description: Create a sufficient number of docstring (i.e., multiple-line) comments in process.py
+      check: CountMultipleLineComments
+      options:
+        language: "Python"
+        count: 3
+        exact: false
+    - description: Create a sufficient number of single-line comments in process.py
+      check: CountSingleLineComments
+      options:
+        language: "Python"
+        count: 20
+        exact: false
+
+# perform checks on a file
+- writing/reflection.md:
+    - description: Ensure that the reflection.md file exists in the writing/ directory
+      check: ConfirmFileExists
+    - description: Complete all TODOs, remove the TODO markers, and rewrite comments for the reflection
+      check: MatchFileFragment
+      options:
+        fragment: TODO
+        count: 0
+        exact: true
+    - description: Delete the 'Add Your Name Here' prompt in the reflection file
+      check: MatchFileFragment
+      options:
+        fragment: "Add Your Name Here"
+        count: 0
+        exact: true
+    - description: Retype the every word in the Honor Code pledge in reflection.md
+      check: MatchFileFragment
+      options:
+        fragment: "I adhered to the Allegheny College Honor Code while completing this project."
+        count: 3
+        exact: true
+    - description: Confirm that the markdown file has the correct number of headers
+      check: CountMarkdownTags
+      options:
+        tag: heading
+        count: 21
+        exact: false
+    - description: Confirm that the markdown file has the correct number of fenced code blocks
+      check: CountMarkdownTags
+      options:
+        tag: code_block
+        count: 5
+        exact: false
+    - description: Confirm that the markdown file has the correct number of research questions
+      check: MatchFileFragment
+      options:
+        fragment: "RQ"
+        count: 3
+        exact: false
+
+# }}}
+
+# Check Output {{{
+
+# run a check
+- description: Pass the checks in the test suite
+  command: cd filesorter && poetry run task test
+
+# run a check
+- description: Pass the coverage minimum checks for the tests
+  command: cd filesorter && poetry run task coverage
+
+# run a check
+- description: Pass the source code formatting checks run by ruff
+  command: cd filesorter && poetry run task format
+
+# run a check
+- description: Pass the source code linting checks run by ruff
+  command: cd filesorter && poetry run task check
+
+# run a check
+- description: Pass the linting checks run by mypy
+  command: cd filesorter && poetry run task mypy
+
+# run a check
+- description: Pass the linting checks run by pymarkdown
+  command: cd filesorter && poetry run task markdownlint
+
+# run a check
+- description: Pass the undocumented function checks run by symbex
+  command: cd filesorter && poetry run task symbex-documented
+
+# run a check
+- description: Pass the untyped function checks run by symbex
+  command: cd filesorter && poetry run task symbex-typed
+
+# }}}
+
+# Program Output {{{
+
+# run the program and confirm correct number of lines in the output
+- description: Run the program and confirm the correct number of non-blank lines in the output, using lambda function
+  check: CountCommandOutput
+  options:
+    command: 'cd filesorter && poetry run filesorter --attribute email --approach lambdafunction --input-file input/people.txt --output-file output/people.txt'
+    count: 5
+    exact: false
+
+# run the program and confirm correct number of lines in the output
+- description: Run the program and confirm the correct number of non-blank lines in the output, using attr getter
+  check: CountCommandOutput
+  options:
+    command: 'cd filesorter && poetry run filesorter --attribute email --approach attrgetter --input-file input/people.txt --output-file output/people.txt'
+    count: 5
+    exact: false
+
+# run the program and confirm correct number of lines in the output
+- description: Run the program and confirm the correct number of non-blank lines in the output, using custom comparison
+  check: CountCommandOutput
+  options:
+    command: 'cd filesorter && poetry run filesorter --attribute email --approach customcompare --input-file input/people.txt --output-file output/people.txt'
+    count: 5
+    exact: false
+
+# }}}
+
+# Commits {{{
+
+# count number of commits in the GitHub repository
+- description: Have at least a specific minimum of commits in repository
+  check: CountCommits
+  options:
+    count: 10
+
+# }}}
