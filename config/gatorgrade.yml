@@ -11,11 +11,78 @@ setup: |
 - filesorter/filesorter/__init__.py:
     - description: Ensure that the __init__.py file exists in the filesorter/filesorter/ directory
       check: ConfirmFileExists
+    - description: "Complete all TODOs, remove the TODO markers, and rewrite comments for __init__.py in filesorter/"
+      check: MatchFileFragment
+      options:
+        fragment: TODO
+        count: 0
+        exact: true
 
 # perform checks on a file
 - filesorter/tests/__init__.py:
     - description: Ensure that the __init__.py file exists in the filesorter/tests/ directory
       check: ConfirmFileExists
+    - description: "Complete all TODOs, remove the TODO markers, and rewrite comments for __init__.py in tests/"
+      check: MatchFileFragment
+      options:
+        fragment: TODO
+        count: 0
+        exact: true
+
+# perform checks on a file
+- filesorter/tests/test_approach.py:
+    - description: Ensure that the test_approach.py file exists in the filesorter/tests/ directory
+      check: ConfirmFileExists
+    - description: "Complete all TODOs, remove the TODO markers, and rewrite comments for test_approach.py"
+      check: MatchFileFragment
+      options:
+        fragment: TODO
+        count: 0
+        exact: true
+
+# perform checks on a file
+- filesorter/tests/test_constants.py:
+    - description: Ensure that the test_constants.py file exists in the filesorter/tests/ directory
+      check: ConfirmFileExists
+    - description: "Complete all TODOs, remove the TODO markers, and rewrite comments for test_constants.py"
+      check: MatchFileFragment
+      options:
+        fragment: TODO
+        count: 0
+        exact: true
+
+# perform checks on a file
+- filesorter/tests/test_organize.py:
+    - description: Ensure that the test_organize.py file exists in the filesorter/tests/ directory
+      check: ConfirmFileExists
+    - description: "Complete all TODOs, remove the TODO markers, and rewrite comments for test_organize.py"
+      check: MatchFileFragment
+      options:
+        fragment: TODO
+        count: 0
+        exact: true
+
+# perform checks on a file
+- filesorter/tests/test_person.py:
+    - description: Ensure that the test_person.py file exists in the filesorter/tests/ directory
+      check: ConfirmFileExists
+    - description: "Complete all TODOs, remove the TODO markers, and rewrite comments for test_person.py"
+      check: MatchFileFragment
+      options:
+        fragment: TODO
+        count: 0
+        exact: true
+
+# perform checks on a file
+- filesorter/tests/test_profile.py:
+    - description: Ensure that the test_profile.py file exists in the filesorter/tests/ directory
+      check: ConfirmFileExists
+    - description: "Complete all TODOs, remove the TODO markers, and rewrite comments for test_profile.py"
+      check: MatchFileFragment
+      options:
+        fragment: TODO
+        count: 0
+        exact: true
 
 # perform checks on a file
 - filesorter/filesorter/main.py:
@@ -123,13 +190,13 @@ setup: |
       check: MatchFileFragment
       options:
         fragment: "getattr("
-        count: 3
+        count: 2
         exact: false
     - description: Create a sufficient number of docstring (i.e., multiple-line) comments in organize.py
       check: CountMultipleLineComments
       options:
         language: "Python"
-        count: 6
+        count: 8
         exact: false
     - description: Create a sufficient number of single-line comments in organize.py
       check: CountSingleLineComments
@@ -174,6 +241,41 @@ setup: |
         exact: false
 
 # perform checks on a file
+- filesorter/filesorter/profile.py:
+    - description: Ensure that the profile.py file exists in the filesorter/filesorter/ directory
+      check: ConfirmFileExists
+    - description: Complete all TODOs, remove the TODO markers, and rewrite comments for profile.py
+      check: MatchFileFragment
+      options:
+        fragment: TODO
+        count: 0
+        exact: true
+    - description: Define the extract_person_data function in the process.py file
+      check: MatchFileFragment
+      options:
+        fragment: "timer("
+        count: 1
+        exact: true
+    - description: Define the extract_person_data function in the process.py file
+      check: MatchFileFragment
+      options:
+        fragment: "output_performance_data("
+        count: 1
+        exact: true
+    - description: Create a sufficient number of docstring (i.e., multiple-line) comments in process.py
+      check: CountMultipleLineComments
+      options:
+        language: "Python"
+        count: 3
+        exact: false
+    - description: Create a sufficient number of single-line comments in process.py
+      check: CountSingleLineComments
+      options:
+        language: "Python"
+        count: 5
+        exact: false
+
+# perform checks on a file
 - writing/reflection.md:
     - description: Ensure that the reflection.md file exists in the writing/ directory
       check: ConfirmFileExists
@@ -193,7 +295,7 @@ setup: |
       check: MatchFileFragment
       options:
         fragment: "I adhered to the Allegheny College Honor Code while completing this project."
-        count: 3
+        count: 2
         exact: true
     - description: Confirm that the markdown file has the correct number of headers
       check: CountMarkdownTags
@@ -275,7 +377,15 @@ setup: |
   check: CountCommandOutput
   options:
     command: 'cd filesorter && poetry run filesorter --attribute email --approach customcompare --input-file input/people.txt --output-file output/people.txt'
-    count: 5
+    count: 6
+    exact: false
+
+# run the program and confirm correct number of lines in the output
+- description: Run the program and confirm the correct number of non-blank lines in the output, using quicksort
+  check: CountCommandOutput
+  options:
+    command: 'cd filesorter && poetry run filesorter --attribute email --approach quicksort --input-file input/people.txt --output-file output/people.txt'
+    count: 6
     exact: false
 
 # }}}
