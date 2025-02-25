@@ -1,10 +1,12 @@
+"""Input and process objects about people."""
+
 from pathlib import Path
 from typing import List
 
 import typer
 from rich.console import Console
 
-from filesorter import approach, organize, person, process
+from filesorter import approach, organize, person, process, profile
 
 # create a Typer object to support the command-line interface
 cli = typer.Typer()
@@ -37,12 +39,9 @@ def main(
     """Input data about a person and then analyze and save it."""
     # display details about the file provided on the command line
     data_text = ""
-    # the file was not specified so we cannot continue using program
-    if input_file is None:
-        console.print("No data file specified!")
-        raise typer.Abort()
-    # the file was specified and it is valid so we should read and check it
-    if input_file.is_file():
+    # the file was specified and it is valid so we should read and check it;
+    # note that this needs to be true for both the input and output files
+    if input_file.is_file() and output_file.is_file():
         # read in the data from the specified file containing information about people
         console.print(
             f":abacus: Reading in the data from the specified file {input_file!s}"
@@ -70,3 +69,10 @@ def main(
             f":sparkles: Saving the sorted people data to the file {output_file!s}"
         )
         process.write_person_data(str(output_file), sorted_person_list)
+        # output the performance data that was saved
+        profile.output_performance_data(console, ":microscope:")
+    else:
+        # the file was not specified or it is not valid so we should display an error message
+        console.print(
+            f":x: The specified file {input_file!s} does not exist or is not a file"
+        )
