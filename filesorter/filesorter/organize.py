@@ -9,8 +9,31 @@ from operator import attrgetter
 from typing import List
 
 from filesorter.person import Person
+from filesorter.profile import timer
 
 # TODO: Add all of the required source code to this module
+
+# TODO: Consider using the timer decorator so that you
+# can easily collect performance data for the sorting functions
+
+
+def sort_persons_bubblesort(
+    persons: List[Person], attribute: str
+) -> List[Person]:
+    """Sort a list of Person objects based on a given attribute using the bubble sort approach."""
+    # TODO: implement the bubble sort algorithm to sort the list of people
+    return []
+
+
+@timer("Time to Sort Person Data Using Iterative Quick Sort (ms)")
+def sort_persons_quicksort(
+    persons: List[Person], attribute: str
+) -> List[Person]:
+    """Sort a list of Person objects based on a given attribute using the iterative quick sort approach."""
+    # TODO: implement the iterative quick sort algorithm to sort the list of people
+    # NOTE: If you decide to use the timer decorator it may be easier for you
+    # to collect the timing data for the quick sort algorithm by using iteration
+    return []
 
 
 def sort_persons(
