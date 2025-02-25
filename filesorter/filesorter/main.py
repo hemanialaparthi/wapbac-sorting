@@ -41,7 +41,7 @@ def main(
     data_text = ""
     # the file was specified and it is valid so we should read and check it;
     # note that this needs to be true for both the input and output files
-    if input_file.is_file() and output_file.is_file():
+    if input_file.is_file():
         # read in the data from the specified file containing information about people
         console.print(
             f":abacus: Reading in the data from the specified file {input_file!s}"
