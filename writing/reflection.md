@@ -2,13 +2,6 @@
 
 ## Table of Contents
 
-<!---toc start-->
-
-<!-- TODO: Use one of the tasks specified in the `pyproject.toml` file -->
-<!-- to add the required table of contents. -->
-
-<!---toc end-->
-
 ## Add Your Name Here
 
 ## Re-type the sentence "I adhered to the Allegheny College Honor Code while completing this project."
@@ -20,6 +13,14 @@ TODO: You must retype the sentence here in order to digitally sign your pledge.
 **IMPORTANT:** If you do not type the required sentence then the course
 instructor will not know that you adhered to the Allegheny College Honor Code
 while completing the project.
+
+## References
+
+Note: Please list here the sources that you consulted while completing this
+algorithm engineering project. The list of sources should also include
+references to any artificial intelligence coding assistants that you used and a
+summary of the ways in which you used those coding assistants to complete this
+project. You can use a Markdown list to provide and comment on the sources.
 
 ## Program Output
 
