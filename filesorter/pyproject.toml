@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "filesorter"
-version = "0.1.0"
+version = "0.2.0"
 description = ""
 authors = ["Gregory M. Kapfhammer <gkapfham@allegheny.edu>"]
 
@@ -13,20 +13,18 @@ rich = "^10.9.0"
 typer = {extras = ["all"], version = "^0.7.0"}
 rapidfuzz = "^3.6.1"
 
-[tool.poetry.dev-dependencies]
-taskipy = "^1.8.1"
-mypy = "^0.910"
-pytest = "^7.2.0"
-pymarkdownlnt = "^0.9.8"
-
 [tool.poetry.group.dev.dependencies]
-ruff = "==0.1.15"
 symbex = "^1.4"
 pytest-cov = "^4.1.0"
 pytest-xdist = "^3.5.0"
 pytest-clarity = "^1.0.1"
 pytest-randomly = "^3.15.0"
 mdtoc = "^1.3"
+taskipy = "^1.8.1"
+mypy = "^0.910"
+pytest = "^7.2.0"
+pymarkdownlnt = "^0.9.8"
+ruff = "^0.9.7"
 
 [tool.taskipy.variables]
 project = "filesorter"
@@ -65,14 +63,14 @@ mdtoc-reflection = { cmd = "mdtoc ../writing/reflection.md", help = "Generate th
 
 [tool.ruff]
 line-length = 79
-ignore = [
+lint.ignore = [
     "E501", # do not check line length
     "E731", # do not assign lambda expression
 ]
-select = [
+lint.select = [
     "E",    # pycodestyle errors
     "I",    # isort
-    "F",    # Pyflakes
+    "F",    # pyflakes
     "PL",   # pylint
     "Q",    # flake8-quotes
     "RUF",  # ruff-specific
