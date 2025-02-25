@@ -34,7 +34,7 @@ TODO: Add an output from running the specified program
 
 TODO: Add an output from running the specified program
 
-### Use two fenced code blocks to provide output from five different runs of `filesorter` with five different inputs
+### Use fenced code blocks to provide output from five different runs of `filesorter` with five different inputs
 
 TODO: Provide the complete command-line for your use of the `filesorter` program
 
@@ -53,6 +53,16 @@ TODO: Make sure that this run is for one of the three unique approaches
 TODO: Provide your own example of a command and the output that it produces
 TODO: Make sure that this run is for one of the three unique approaches
 
+#### Provide the command and the output for the fourth run of the `filesorter`
+
+TODO: Provide your own example of a command and the output that it produces
+TODO: Make sure that this run is for one of the three unique approaches
+
+#### Provide the command and the output for the fifth run of the `filesorter`
+
+TODO: Provide your own example of a command and the output that it produces
+TODO: Make sure that this run is for one of the three unique approaches
+
 ## Experiment Design
 
 Describe your design of the `filesorter` experiment that answers your own
@@ -64,6 +74,8 @@ alternative files that contain rows of data with `Person` attributes that can be
 parsed and then transformed into instances of the `Person` class; this aspect of
 the experiment may also investigate both the number of rows inside of the data
 file and the contents of each row inside of the data file.
+- **Sorting algorithms**: the sorting algorithms that the `filesorter` uses to
+sort the instances of the `Person` class that are stored in memory.
 - **Input time**: the time overhead associated with reading in the specified
 data file.
 - **Output time**: the time overhead associated with writing to a specified file
@@ -94,16 +106,29 @@ consider as motivating questions for your actual research questions:
 - **Q4**: What is the time overhead associated with reading in the specified data file?
 - **Q5**: What is the time overhead associated with writing data to the specified data file?
 
+TODO: Please note that you should use the aforementioned research questions as a
+starting point for your own research questions. This means that you should not
+reuse wholesale the questions as they are currently stated and instead use them
+as a source of inspiration for your own questions.
+
 TODO: Although the statement of three research questions is required for the
 baseline associated with this project, you may need to state and answer
 additional questions in order to develop a full-featured understanding of the
 performance trade-offs evident through the use of the `filesorter`.
 
-TODO: You must add instrumentation using tools like `timeit` to ensure that the
-`filesorter` calculates and reports the time overhead data that you will
-need to answer your research questions. Before you conduct your experiments,
-please carefully confirm that `filesorter` calculates and reports the time
-overhead values in a correct fashion.
+TODO: You must add instrumentation using tools like `timeit` or `perf_counter`
+to ensure that the `filesorter` calculates and reports the time overhead data
+that you will need to answer your research questions. Before you conduct your
+experiments, please carefully confirm that `filesorter` calculates and reports
+the time overhead values in a correct fashion. Please refer to the
+implementation of the `timer` and `output_performance_data` functions in the
+`profile.py` module for guidance on how to create and add this instrumentation.
+It is important to note that the instrumentation in `profile.py` current reports
+execution time in milliseconds, which may or may not be suitable for the
+specific research questions that you are asking and answering. Finally, please
+bear in mind that, depending on what research questions you ask and what
+experimental methodology you design to answer them, you should be prepared to
+run certain configurations of `filesorter` for an extended period of time.
 
 ## Data Tables
 
