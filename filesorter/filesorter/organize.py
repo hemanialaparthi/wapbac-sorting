@@ -11,18 +11,52 @@ from typing import List
 from filesorter.person import Person
 from filesorter.profile import timer
 
-# TODO: Add all of the required source code to this module
+# Add all of the required source code to this module
 
-# TODO: Consider using the timer decorator so that you
+# Consider using the timer decorator so that you
 # can easily collect performance data for the sorting functions
 
 
+@timer("Time to Sort Person Data Using Bubble Sort (ms)")
 def sort_persons_bubblesort(
     persons: List[Person], attribute: str
 ) -> List[Person]:
     """Sort a list of Person objects based on a given attribute using the bubble sort approach."""
-    # TODO: implement the bubble sort algorithm to sort the list of people
-    return []
+    length_of_persons = len(persons)
+    for i in range(length_of_persons):
+        for j in range(0, length_of_persons - i - 1):
+            if getattr(persons[j], attribute) > getattr(
+                persons[j + 1], attribute
+            ):
+                persons[j], persons[j + 1] = persons[j + 1], persons[j]
+    return persons
+
+
+@timer("Time to Sort Person Data Using Bubble Sort (ms)")
+def sort_persons_bubblesort_multilevel(
+    persons: List[Person], attribute: str
+) -> List[Person]:
+    """Sort a list of Person objects based on a given attribute using the bubble sort approach."""
+    length_of_persons = len(persons)
+    attributes = ["name", "country", "phone", "job", "email"]  # Define the order of attributes
+
+    # Find the index of the primary attribute
+    if attribute not in attributes:
+        raise ValueError(f"Invalid attribute: {attribute}")
+    primary_index = attributes.index(attribute)
+
+    for i in range(length_of_persons):
+        for j in range(0, length_of_persons - i - 1):
+            # Compare based on the primary attribute and resolve ties with subsequent attributes
+            for k in range(primary_index, len(attributes)):
+                attr = attributes[k]
+                if getattr(persons[j], attr) > getattr(persons[j + 1], attr):
+                    # Swap if the current person is greater
+                    persons[j], persons[j + 1] = persons[j + 1], persons[j]
+                    break  # Move to the next pair of rows
+                elif getattr(persons[j], attr) < getattr(persons[j + 1], attr):
+                    break  # Rows are already in order for this attribute
+    return persons
 
 
 @timer("Time to Sort Person Data Using Iterative Quick Sort (ms)")
@@ -40,11 +74,17 @@ def sort_persons(
     persons: List[Person], attribute: str, approach: str
 ) -> List[Person]:
     """Sort the list of Person objects according to the requested approach."""
-    # TODO: extract the name of the current module and the sorting function
-    # TODO: call the function that was built up and return its result
+    # extract the name of the current module and the sorting function
+    module_name = sys.modules[__name__]
+    function_name = f"sort_persons_{approach}"
+    # call the function that was built up and return its result
     # note that the sorting function will be called with the
     # list of the people and the provided attribute of a person
-    return []
+    if not hasattr(module_name, function_name):
+        raise ValueError(f"Invalid sorting approach: {approach}")
+    sorting_function = getattr(module_name, function_name)
+    sorted_persons = sorting_function(persons, attribute)
+    return sorted_persons
 
 
 def sort_persons_lambdafunction(
