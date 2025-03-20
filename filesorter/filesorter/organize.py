@@ -32,30 +32,45 @@ def sort_persons_bubblesort(
     return persons
 
 
-@timer("Time to Sort Person Data Using Bubble Sort (ms)")
+@timer("Time to Sort Person Data Using Bubble Sort with Multi-Level Sorting (ms)")
 def sort_persons_bubblesort_multilevel(
     persons: List[Person], attribute: str
 ) -> List[Person]:
-    """Sort a list of Person objects based on a given attribute using the bubble sort approach."""
+    """
+    Sort a list of Person objects using Bubble Sort with multi-level comparison.
+
+    :param persons: List of Person objects to sort.
+    :param attribute: Primary attribute to sort by.
+    :return: Sorted list of Person objects.
+    """
+    # Define the tie-breaking attributes (e.g., secondary and tertiary attributes)
+    tie_breaking_attributes = ["name", "country", "phone_number", "job", "email"]
+
     length_of_persons = len(persons)
-    attributes = ["name", "country", "phone", "job", "email"]  # Define the order of attributes
-
-    # Find the index of the primary attribute
-    if attribute not in attributes:
-        raise ValueError(f"Invalid attribute: {attribute}")
-    primary_index = attributes.index(attribute)
-
     for i in range(length_of_persons):
         for j in range(0, length_of_persons - i - 1):
-            # Compare based on the primary attribute and resolve ties with subsequent attributes
-            for k in range(primary_index, len(attributes)):
-                attr = attributes[k]
-                if getattr(persons[j], attr) > getattr(persons[j + 1], attr):
-                    # Swap if the current person is greater
-                    persons[j], persons[j + 1] = persons[j + 1], persons[j]
-                    break  # Move to the next pair of rows
-                elif getattr(persons[j], attr) < getattr(persons[j + 1], attr):
-                    break  # Rows are already in order for this attribute
+            # Compare records based on the primary attribute
+            value1 = getattr(persons[j], attribute)
+            value2 = getattr(persons[j + 1], attribute)
+
+            if value1 == value2:
+                # If values are equal, use tie-breaking attributes
+                swap = False
+                for tie_attr in tie_breaking_attributes:
+                    tie_value1 = getattr(persons[j], tie_attr)
+                    tie_value2 = getattr(persons[j + 1], tie_attr)
+                    if tie_value1 > tie_value2:
+                        swap = True
+                        break
+                    elif tie_value1 < tie_value2:
+                        break
+            else:
+                # If values are not equal, determine if a swap is needed
+                swap = value1 > value2
+
+            # Swap if necessary
+            if swap:
+                persons[j], persons[j + 1] = persons[j + 1], persons[j]
     return persons
 
 
