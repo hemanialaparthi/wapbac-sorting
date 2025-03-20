@@ -9,6 +9,7 @@ class SortApproach(str, Enum):
     customcompare = "customcompare"
     lambdafunction = "lambdafunction"
     quicksort = "quicksort"
+    bubblesort_multilevel = "bubblesort_multilevel"
 
     def __str__(self):
         """Define a default string representation."""
