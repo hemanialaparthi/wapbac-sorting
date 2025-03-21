@@ -11,7 +11,7 @@ from typing import List
 from filesorter.person import Person
 from filesorter.profile import timer
 
-# Add all of the required source code to this module
+# Add all of the required source code to this
 
 # Consider using the timer decorator so that you
 # can easily collect performance data for the sorting functions
