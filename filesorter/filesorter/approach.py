@@ -10,6 +10,7 @@ class SortApproach(str, Enum):
     lambdafunction = "lambdafunction"
     quicksort = "quicksort"
     bubblesort_multilevel = "bubblesort_multilevel"
+    quicksort_multilevel = "quicksort_multilevel"
 
     def __str__(self):
         """Define a default string representation."""
