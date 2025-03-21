@@ -74,6 +74,19 @@ def sort_persons_bubblesort_multilevel(
     return persons
 
 
+def quicksort(arr, keys):
+    """Sort a list of dictionaries based on multiple keys using quicksort."""
+    if len(arr) <= 1:
+        return arr  # Base case: if the array has 1 or 0 elements, it's already sorted
+    pivot = arr[len(arr) // 2]  # Choose the middle element as the pivot
+    # Partition the array into three parts: less than, equal to, and greater than the pivot
+    left = [x for x in arr if tuple(getattr(x, key) for key in keys) < tuple(getattr(pivot, key) for key in keys)]
+    middle = [x for x in arr if tuple(getattr(x, key) for key in keys) == tuple(getattr(pivot, key) for key in keys)]
+    right = [x for x in arr if tuple(getattr(x, key) for key in keys) > tuple(getattr(pivot, key) for key in keys)]
+    # Recursively sort the left and right parts and concatenate them with the middle part
+    return quicksort(left, keys) + middle + quicksort(right, keys)
+
+
 @timer("Time to Sort Person Data Using Timsort with Multi-Level Sorting (ms)")
 def sort_persons_timsort_multilevel(
     persons: List[Person], attribute: str
@@ -100,13 +113,46 @@ def sort_persons_timsort_multilevel(
 
 @timer("Time to Sort Person Data Using Iterative Quick Sort (ms)")
 def sort_persons_quicksort(
-    persons: List[Person], attribute: str
+        persons: List[Person], attribute: str
 ) -> List[Person]:
     """Sort a list of Person objects based on a given attribute using the iterative quick sort approach."""
-    # TODO: implement the iterative quick sort algorithm to sort the list of people
-    # NOTE: If you decide to use the timer decorator it may be easier for you
-    # to collect the timing data for the quick sort algorithm by using iteration
-    return []
+    def partition(low, high):
+        pivot = getattr(persons[high], attribute)
+        i = low - 1
+        for j in range(low, high):
+            # move elements less than pivot to the left
+            if getattr(persons[j], attribute) <= pivot:
+                i += 1
+                persons[i], persons[j] = persons[j], persons[i]
+        persons[i+1], persons[high] = persons[high], persons[i+1]
+        return i+1
+
+    stack = [(0, len(persons) - 1)]
+    while stack:
+        low, high = stack.pop()
+        if low < high:
+            pi = partition(low, high)
+            # Push sub-array to stack for further sorting
+            stack.append((low, pi - 1))
+            stack.append((pi + 1, high))
+    return persons
+
+
+@timer("Time to Sort Person Data Using Quick Sort with Multi-Level Sorting (ms)")
+def sort_persons_quicksort_multilevel(
+    persons: List[Person], attribute: str
+) -> List[Person]:
+    """
+    Sort a list of Person objects using Quick Sort with multi-level comparison.
+
+    :param persons: List of Person objects to sort.
+    :param attribute: Primary attribute to sort by.
+    :return: Sorted list of Person objects.
+    """
+    # Define the tie-breaking attributes (e.g., secondary and tertiary attributes)
+    tie_breaking_attributes = ["name", "country", "phone_number", "job", "email"]
+    keys = [attribute] + [attr for attr in tie_breaking_attributes if attr != attribute]
+    return quicksort(persons, keys)
 
 
 def sort_persons(
