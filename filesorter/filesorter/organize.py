@@ -74,6 +74,30 @@ def sort_persons_bubblesort_multilevel(
     return persons
 
 
+@timer("Time to Sort Person Data Using Timsort with Multi-Level Sorting (ms)")
+def sort_persons_timsort_multilevel(
+    persons: List[Person], attribute: str
+) -> List[Person]:
+    """
+    Sort a list of Person objects using Timsort with multi-level comparison.
+
+    :param persons: List of Person objects to sort.
+    :param attribute: Primary attribute to sort by.
+    :return: Sorted list of Person objects.
+    """
+    # Define the tie-breaking attributes (e.g., secondary and tertiary attributes)
+    tie_breaking_attributes = ["name", "country", "phone_number", "job", "email"]
+
+    # Create a composite key function for multi-level sorting
+    def composite_key(person: Person):
+        primary_value = getattr(person, attribute)
+        tie_values = tuple(getattr(person, tie_attr) for tie_attr in tie_breaking_attributes)
+        return (primary_value, *tie_values)
+
+    # Use Timsort (Python's built-in sorted function) with the composite key
+    sorted_persons = sorted(persons, key=composite_key)
+    return sorted_persons
+
 @timer("Time to Sort Person Data Using Iterative Quick Sort (ms)")
 def sort_persons_quicksort(
     persons: List[Person], attribute: str
