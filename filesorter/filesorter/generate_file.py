@@ -7,8 +7,8 @@ import faker
 fake = faker.Faker()
 
 # Define the target input size and the percentage of matching lines
-file_size = 50000  # Number of lines in the CSV file
-match_percentage = 1.0  # 20% of the lines will match the given line
+file_size = 1000  # Number of lines in the CSV file
+match_percentage = 0.20  # 20% of the lines will match the given line
 
 # Define the line that should appear in some of the rows
 fixed_line = ['April Mcguire', 'Kyrgyz Republic', '+1-927-438-7339', 'Advertising copywriter', 'aadams@example.net']
