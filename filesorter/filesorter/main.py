@@ -31,7 +31,7 @@ def prepare_person_list_for_display(person_list: List[person.Person]) -> str:
 def main(
     attribute: str = typer.Option(...),
     approach: approach.SortApproach = typer.Option(
-        approach.SortApproach.lambdafunction
+        approach.SortApproach.timsort
     ),
     input_file: Path = typer.Option(...),
     output_file: Path = typer.Option(...),
