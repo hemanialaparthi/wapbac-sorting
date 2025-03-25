@@ -9,6 +9,7 @@ from filesorter.organize import (
     sort_persons_customcompare,
     sort_persons_lambdafunction,
     sort_persons_quicksort,
+    sort_persons_quicksort_multilevel
 )
 from filesorter.person import Person
 
@@ -75,3 +76,34 @@ def test_sort_persons_bubblesort_multilevel_same_attribute(persons_list):
     # Check if persons with the same job are sorted by name (first tie-breaker)
     assert sorted_persons[2].name == "Alice"
     assert sorted_persons[3].name == "David"
+
+
+def test_sort_persons_quicksort_non_name_attribute(persons_list):
+    """Test single-level quicksort by country"""
+    sorted_persons = sort_persons_quicksort(persons_list, "country")
+    assert [p.country for p in sorted_persons] == ["Canada", "UK", "USA"]
+
+
+def test_sort_persons_quicksort_multilevel_job_tiebreak(persons_list):
+    """Test multi-level quicksort with job tie-breaker"""
+    # Add duplicate job
+    persons_list.append(Person("David", "Australia", "1111111111", "Engineer", "david@example.com"))
+    sorted_persons = sort_persons_quicksort_multilevel(persons_list, "job")
+    
+    # Check job order and name tie-breaker
+    assert sorted_persons[0].job == "Artist"
+    assert sorted_persons[1].job == "Doctor"
+    assert sorted_persons[2].job == "Engineer" and sorted_persons[2].name == "Alice"
+    assert sorted_persons[3].job == "Engineer" and sorted_persons[3].name == "David"
+
+
+def test_sort_persons_quicksort_multilevel_email_tiebreak(persons_list):
+    """Test multi-level quicksort with email tie-breaker"""
+    # Add duplicate email
+    persons_list.append(Person("Anna", "USA", "9999999999", "Engineer", "alice@example.com"))
+    sorted_persons = sort_persons_quicksort_multilevel(persons_list, "email")
+    
+    # Check email order and name tie-breaker
+    assert sorted_persons[0].email == "alice@example.com" and sorted_persons[0].name == "Alice"
+    assert sorted_persons[1].email == "alice@example.com" and sorted_persons[1].name == "Anna"
+    assert sorted_persons[2].email == "bob@example.com"

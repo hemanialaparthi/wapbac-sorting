@@ -74,43 +74,53 @@ def sort_persons_bubblesort_multilevel(
     return persons
 
 
-def quicksort(arr, keys):
-    """Sort a list of dictionaries based on multiple keys using quicksort."""
-    if len(arr) <= 1:
-        return arr  # Base case: if the array has 1 or 0 elements, it's already sorted
-    pivot = arr[len(arr) // 2]  # Choose the middle element as the pivot
-    # Partition the array into three parts: less than, equal to, and greater than the pivot
-    left = [x for x in arr if tuple(getattr(x, key) for key in keys) < tuple(getattr(pivot, key) for key in keys)]
-    middle = [x for x in arr if tuple(getattr(x, key) for key in keys) == tuple(getattr(pivot, key) for key in keys)]
-    right = [x for x in arr if tuple(getattr(x, key) for key in keys) > tuple(getattr(pivot, key) for key in keys)]
-    # Recursively sort the left and right parts and concatenate them with the middle part
-    return quicksort(left, keys) + middle + quicksort(right, keys)
-
-
-@timer("Time to Sort Person Data Using Iterative Quick Sort (ms)")
+@timer("Time to Sort Person Data Using Quick Sort (ms)")
 def sort_persons_quicksort(
-        persons: List[Person], attribute: str
+    persons: List[Person], attribute: str
 ) -> List[Person]:
-    """Sort a list of Person objects based on a given attribute using the iterative quick sort approach."""
-    def partition(low, high):
-        pivot = getattr(persons[high], attribute)
-        i = low - 1
-        for j in range(low, high):
-            # move elements less than pivot to the left
-            if getattr(persons[j], attribute) <= pivot:
-                i += 1
-                persons[i], persons[j] = persons[j], persons[i]
-        persons[i+1], persons[high] = persons[high], persons[i+1]
-        return i+1
+    """Optimized single-attribute quicksort with median-of-three pivot"""
+    if len(persons) <= 1:
+        return persons
 
+    # Precompute attribute getter
+    get_attr = attrgetter(attribute)
     stack = [(0, len(persons) - 1)]
+    
     while stack:
         low, high = stack.pop()
-        if low < high:
-            pi = partition(low, high)
-            # Push sub-array to stack for further sorting
-            stack.append((low, pi - 1))
-            stack.append((pi + 1, high))
+        if low >= high:
+            continue
+        
+        # Median-of-three pivot selection
+        mid = (low + high) // 2
+        if get_attr(persons[high]) < get_attr(persons[low]):
+            persons[low], persons[high] = persons[high], persons[low]
+        if get_attr(persons[mid]) < get_attr(persons[low]):
+            persons[mid], persons[low] = persons[low], persons[mid]
+        if get_attr(persons[high]) < get_attr(persons[mid]):
+            persons[high], persons[mid] = persons[mid], persons[high]
+        
+        pivot_val = get_attr(persons[mid])
+        i, j = low, high
+        
+        while i <= j:
+            while get_attr(persons[i]) < pivot_val:
+                i += 1
+            while get_attr(persons[j]) > pivot_val:
+                j -= 1
+            if i <= j:
+                persons[i], persons[j] = persons[j], persons[i]
+                i += 1
+                j -= 1
+        
+        # Push smaller partition first
+        if (j - low) < (high - i):
+            stack.append((low, j))
+            stack.append((i, high))
+        else:
+            stack.append((i, high))
+            stack.append((low, j))
+    
     return persons
 
 
@@ -118,11 +128,78 @@ def sort_persons_quicksort(
 def sort_persons_quicksort_multilevel(
     persons: List[Person], attribute: str
 ) -> List[Person]:
-    """Sort a list of Person objects using Quick Sort with multi-level comparison."""
-    # Define the tie-breaking attributes (e.g., secondary and tertiary attributes)
-    tie_breaking_attributes = ["name", "country", "phone_number", "job", "email"]
-    keys = [attribute] + [attr for attr in tie_breaking_attributes if attr != attribute]
-    return quicksort(persons, keys)
+    """Optimized multi-level quicksort with early comparison shortcut"""
+    if len(persons) <= 1:
+        return persons
+
+    # Define tie-breakers and precompute getters
+    tie_breakers = ["name", "country", "phone_number", "email"]
+    keys = [attribute] + tie_breakers
+    getters = [attrgetter(key) for key in keys]
+    
+    stack = [(0, len(persons) - 1)]
+    
+    while stack:
+        low, high = stack.pop()
+        if low >= high:
+            continue
+        
+        # Median-of-three pivot selection
+        mid = (low + high) // 2
+        if getters[0](persons[high]) < getters[0](persons[low]):
+            persons[low], persons[high] = persons[high], persons[low]
+        if getters[0](persons[mid]) < getters[0](persons[low]):
+            persons[mid], persons[low] = persons[low], persons[mid]
+        if getters[0](persons[high]) < getters[0](persons[mid]):
+            persons[high], persons[mid] = persons[mid], persons[high]
+        
+        pivot = persons[mid]
+        pivot_vals = [getter(pivot) for getter in getters]
+        i, j = low, high
+        
+        while i <= j:
+            # Left scan with early exit
+            while True:
+                left_primary = getters[0](persons[i])
+                if left_primary != pivot_vals[0]:
+                    if left_primary >= pivot_vals[0]:
+                        break
+                    i += 1
+                    continue
+                
+                left_vals = [left_primary] + [getter(persons[i]) for getter in getters[1:]]
+                if left_vals >= pivot_vals:
+                    break
+                i += 1
+            
+            # Right scan with early exit
+            while True:
+                right_primary = getters[0](persons[j])
+                if right_primary != pivot_vals[0]:
+                    if right_primary <= pivot_vals[0]:
+                        break
+                    j -= 1
+                    continue
+                
+                right_vals = [right_primary] + [getter(persons[j]) for getter in getters[1:]]
+                if right_vals <= pivot_vals:
+                    break
+                j -= 1
+            
+            if i <= j:
+                persons[i], persons[j] = persons[j], persons[i]
+                i += 1
+                j -= 1
+        
+        # Push smaller partition first
+        if (j - low) < (high - i):
+            stack.append((low, j))
+            stack.append((i, high))
+        else:
+            stack.append((i, high))
+            stack.append((low, j))
+    
+    return persons
 
 
 def sort_persons(
