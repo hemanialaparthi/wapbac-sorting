@@ -87,30 +87,6 @@ def quicksort(arr, keys):
     return quicksort(left, keys) + middle + quicksort(right, keys)
 
 
-@timer("Time to Sort Person Data Using Timsort with Multi-Level Sorting (ms)")
-def sort_persons_timsort_multilevel(
-    persons: List[Person], attribute: str
-) -> List[Person]:
-    """
-    Sort a list of Person objects using Timsort with multi-level comparison.
-
-    :param persons: List of Person objects to sort.
-    :param attribute: Primary attribute to sort by.
-    :return: Sorted list of Person objects.
-    """
-    # Define the tie-breaking attributes (e.g., secondary and tertiary attributes)
-    tie_breaking_attributes = ["name", "country", "phone_number", "job", "email"]
-
-    # Create a composite key function for multi-level sorting
-    def composite_key(person: Person):
-        primary_value = getattr(person, attribute)
-        tie_values = tuple(getattr(person, tie_attr) for tie_attr in tie_breaking_attributes)
-        return (primary_value, *tie_values)
-
-    # Use Timsort (Python's built-in sorted function) with the composite key
-    sorted_persons = sorted(persons, key=composite_key)
-    return sorted_persons
-
 @timer("Time to Sort Person Data Using Iterative Quick Sort (ms)")
 def sort_persons_quicksort(
         persons: List[Person], attribute: str
@@ -142,13 +118,7 @@ def sort_persons_quicksort(
 def sort_persons_quicksort_multilevel(
     persons: List[Person], attribute: str
 ) -> List[Person]:
-    """
-    Sort a list of Person objects using Quick Sort with multi-level comparison.
-
-    :param persons: List of Person objects to sort.
-    :param attribute: Primary attribute to sort by.
-    :return: Sorted list of Person objects.
-    """
+    """Sort a list of Person objects using Quick Sort with multi-level comparison."""
     # Define the tie-breaking attributes (e.g., secondary and tertiary attributes)
     tie_breaking_attributes = ["name", "country", "phone_number", "job", "email"]
     keys = [attribute] + [attr for attr in tie_breaking_attributes if attr != attribute]
@@ -172,48 +142,30 @@ def sort_persons(
     return sorted_persons
 
 
-def sort_persons_lambdafunction(
+@timer("Time to Sort Person Data Using Timsort (ms)")
+def sort_persons_timsort(
     persons: List[Person], attribute: str
 ) -> List[Person]:
-    """Sort a list of Person objects based on a given attribute using the lambdafunction approach."""
-    # TODO: define a dictionary mapping attribute names to their corresponding
-    # Person attributes; make sure to use a lambda function to extract the property
-    # TODO: ensure that the provided attribute is valid; raise a ValueError
-    # if the attribute is not valid and thus sorting cannot be performed
-    # TODO: sort the list using the attribute as the sorting key
-    # TODO: return the sorted list of people data
-    return []
+    """Sort a list of Person objects using Timsort based on a single attribute."""
+    # Use Timsort (Python's built-in sorted function) with the attribute as the key
+    sorted_persons = sorted(persons, key=attrgetter(attribute))
+    return sorted_persons
 
 
-def sort_persons_attrgetter(
+@timer("Time to Sort Person Data Using Timsort with Multi-Level Sorting (ms)")
+def sort_persons_timsort_multilevel(
     persons: List[Person], attribute: str
 ) -> List[Person]:
-    """Sort a list of Person objects based on a given attribute using the attrgetter approach."""
-    # TODO: define a dictionary mapping attribute names to their corresponding
-    # Person attributes; make sure to use the getattr function to extract the property
-    # TODO: ensure that the provided attribute is valid; raise a ValueError
-    # if the attribute is not valid and thus sorting cannot be performed
-    # TODO: sort the list using the attribute as the sorting key
-    # TODO: return the sorted list of people data
-    return []
+    """Sort a list of Person objects using Timsort with multi-level comparison"""
+    # Define the tie-breaking attributes (e.g., secondary and tertiary attributes)
+    tie_breaking_attributes = ["name", "country", "phone_number", "job", "email"]
 
+    # Create a composite key function for multi-level sorting
+    def composite_key(person: Person):
+        primary_value = getattr(person, attribute)
+        tie_values = tuple(getattr(person, tie_attr) for tie_attr in tie_breaking_attributes)
+        return (primary_value, *tie_values)
 
-def sort_persons_customcompare(
-    persons: List[Person], attribute: str
-) -> List[Person]:
-    """Sort a list of Person objects based on a given attribute using the customcompare approach."""
-
-    def compare_persons(person_one: Person, person_two: Person) -> int:
-        """Compare two people using the provided attribute."""
-        # TODO: extract the attribute values from the two people;
-        # this should use the getarr function to extract the
-        # attribute from the person object
-        # TODO: compare the two people using lexical ordering
-        # and return the standard code for a comparison function;
-        # see the project documentation for the three return values
-        return 0
-
-    # TODO: confirm that an instance of Person has the specified attribute
-    # TODO: sort the list using the attribute as the key
-    # TODO: return the sorted list of people data
-    return []
+    # Use Timsort (Python's built-in sorted function) with the composite key
+    sorted_persons = sorted(persons, key=composite_key)
+    return sorted_persons
