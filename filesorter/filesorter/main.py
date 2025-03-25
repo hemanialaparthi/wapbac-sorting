@@ -31,15 +31,15 @@ def prepare_person_list_for_display(person_list: List[person.Person]) -> str:
 def main(
     attribute: str = typer.Option(...),
     approach: approach.SortApproach = typer.Option(
-        approach.SortApproach.lambdafunction
+        approach.SortApproach.timsort
     ),
     input_file: Path = typer.Option(...),
     output_file: Path = typer.Option(...),
 ):
-    """Input data about a person and then analyze and save it."""
+    """Input data about a person and then analyze and save it"""
     # display details about the file provided on the command line
     data_text = ""
-    # the file was specified and it is valid so we should read and check it;
+    # the file was specified and it is valid so we should read and check it
     # note that this needs to be true for both the input and output files
     if input_file.is_file():
         # read in the data from the specified file containing information about people
