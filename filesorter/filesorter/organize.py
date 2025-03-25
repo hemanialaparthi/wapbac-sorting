@@ -151,6 +151,7 @@ def sort_persons_timsort(
     sorted_persons = sorted(persons, key=attrgetter(attribute))
     return sorted_persons
 
+
 @timer("Time to Sort Person Data Using Timsort with Multi-Level Sorting (ms)")
 def sort_persons_timsort_multilevel(
     persons: List[Person], attribute: str

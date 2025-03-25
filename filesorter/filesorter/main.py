@@ -39,7 +39,7 @@ def main(
     """Input data about a person and then analyze and save it."""
     # display details about the file provided on the command line
     data_text = ""
-    # the file was specified and it is valid so we should read and check it;
+    # the file was specified and it is valid so we should read and check it
     # note that this needs to be true for both the input and output files
     if input_file.is_file():
         # read in the data from the specified file containing information about people

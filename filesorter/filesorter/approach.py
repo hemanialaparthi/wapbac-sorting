@@ -2,7 +2,7 @@ from enum import Enum
 
 
 class SortApproach(str, Enum):
-    """Define the cool name for the approach for sorting a list contain person objects."""
+    """Define the cool name for the approach for sorting a list contain person objects"""
 
     attrgetter = "attrgetter"
     timsort = "timsort"
