@@ -156,7 +156,7 @@ def sort_persons_timsort(
 def sort_persons_timsort_multilevel(
     persons: List[Person], attribute: str
 ) -> List[Person]:
-    """Sort a list of Person objects using Timsort with multi-level comparison."""
+    """Sort a list of Person objects using Timsort with multi-level comparison"""
     # Define the tie-breaking attributes (e.g., secondary and tertiary attributes)
     tie_breaking_attributes = ["name", "country", "phone_number", "job", "email"]
 

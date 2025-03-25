@@ -36,7 +36,7 @@ def main(
     input_file: Path = typer.Option(...),
     output_file: Path = typer.Option(...),
 ):
-    """Input data about a person and then analyze and save it."""
+    """Input data about a person and then analyze and save it"""
     # display details about the file provided on the command line
     data_text = ""
     # the file was specified and it is valid so we should read and check it

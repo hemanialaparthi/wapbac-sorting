@@ -12,5 +12,5 @@ class SortApproach(str, Enum):
     quicksort_multilevel = "quicksort_multilevel"
 
     def __str__(self):
-        """Define a default string representation."""
+        """Define a default string representation"""
         return self.value
